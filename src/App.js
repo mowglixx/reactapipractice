@@ -1,23 +1,52 @@
-import logo from './logo.svg';
 import './App.css';
+import BreedFilter from './Components/BreedFilter';
+import Cats from './Components/Cats';
+import { useState, useEffect } from 'react'
+
+// API key from env or use DEMO_API_KEY 
+const API_KEY = process.env.REACT_APP_API_KEY ? process.env.REACT_APP_API_KEY : "DEMO_API_KEY"
+
+const showKey = () => {
+  console.log('api key:' + API_KEY)
+}
 
 function App() {
+
+  const [cats, setCats] = useState([]),
+    [selectedBreed, setSelectedBreed] = useState('all')
+
+
+    // useEffect on page load to load cats from the API
+  useEffect(() => {
+    return () => {
+      showKey()
+      fetch(
+      'https://api.thecatapi.com/v1/breeds',
+      {
+        headers: {
+          "content-type": "application/json",
+          'x-api-key': API_KEY
+        }
+      }
+    )
+      .then(promise => promise.json())
+      .then(catsList => {
+        setCats(catsList)
+      })
+    }
+  }, [])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App flexCol">
+      {/* Cats Filter */}
+      <BreedFilter
+        cats={cats}
+        selectedBreed={selectedBreed}
+        setSelectedBreed={setSelectedBreed} />
+      {/* Cats view */}
+      <Cats cats={cats}
+        selectedBreed={selectedBreed} />
     </div>
   );
 }
