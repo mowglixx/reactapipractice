@@ -21,13 +21,7 @@ function App() {
     return async () => {
       showKey()
       await fetch(
-      'https://api.thecatapi.com/v1/breeds',
-      {
-        headers: {
-          "content-type": "application/json",
-          'x-api-key': API_KEY
-        }
-      }
+      'https://api.thecatapi.com/v1/breeds'
     )
       .then(promise => promise.json())
       .then(catsList => {
