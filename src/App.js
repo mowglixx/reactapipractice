@@ -6,10 +6,6 @@ import { useState, useEffect } from 'react'
 // API key from env or use DEMO_API_KEY 
 const API_KEY = process.env.REACT_APP_API_KEY ? process.env.REACT_APP_API_KEY : "DEMO_API_KEY"
 
-const showKey = () => {
-  console.log('api key:' + API_KEY)
-}
-
 function App() {
 
   const [cats, setCats] = useState([]),
@@ -19,7 +15,6 @@ function App() {
     // useEffect on page load to load cats from the API
   useEffect(() => {
     const fetchCats = async () => {
-      showKey()
       await fetch(
       'https://api.thecatapi.com/v1/breeds',
       {
