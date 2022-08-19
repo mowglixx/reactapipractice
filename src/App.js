@@ -2,9 +2,8 @@ import './App.css';
 import BreedFilter from './Components/BreedFilter';
 import Cats from './Components/Cats';
 import { useState, useEffect } from 'react'
+import {fetchCats} from './utils'
 
-// API key from env or use DEMO_API_KEY 
-const API_KEY = process.env.REACT_APP_API_KEY ? process.env.REACT_APP_API_KEY : "DEMO_API_KEY"
 
 function App() {
 
@@ -14,22 +13,7 @@ function App() {
 
     // useEffect on page load to load cats from the API
   useEffect(() => {
-    const fetchCats = () => {
-      fetch(
-      'https://api.thecatapi.com/v1/breeds',
-      {
-        headers: {
-          "content-type": "application/json",
-          'x-api-key': API_KEY
-        }
-      }
-    )
-      .then(promise => promise.json())
-      .then(catsList => {
-        setCats(catsList)
-      })
-    }
-    fetchCats()
+    fetchCats(setCats)
   }, [])
 
 
