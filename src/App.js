@@ -18,9 +18,9 @@ function App() {
 
     // useEffect on page load to load cats from the API
   useEffect(() => {
-    return () => {
+    return async () => {
       showKey()
-      fetch(
+      await fetch(
       'https://api.thecatapi.com/v1/breeds',
       {
         headers: {
