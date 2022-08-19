@@ -18,16 +18,23 @@ function App() {
 
     // useEffect on page load to load cats from the API
   useEffect(() => {
-    return async () => {
+    const fetchCats = async () => {
       showKey()
       await fetch(
-      'https://api.thecatapi.com/v1/breeds'
+      'https://api.thecatapi.com/v1/breeds',
+      {
+        headers: {
+          "content-type": "application/json",
+          'x-api-key': API_KEY
+        }
+      }
     )
       .then(promise => promise.json())
       .then(catsList => {
         setCats(catsList)
       })
     }
+    fetchCats()
   }, [])
 
 
